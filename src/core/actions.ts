@@ -1,26 +1,13 @@
 import { setState, useState } from './store'
+import { fetchTracks } from '../api/http'
+
 import * as audio from '../player/audio'
-import type Track from '../types/track'
 
-const mockTracks: Track[] = [
-  {
-    id: '1',
-    title: 'Retrowave Night',
-    url: '/tracks/track1.mp3',
-    cover: '../../public/test-cover2.jpg',
-    time: 120,
-  },
-  {
-    id: '2',
-    title: 'Neon Highway',
-    url: '/tracks/track2.mp3',
-    cover: '../../public/test-cover.png',
-    time: 180,
-  }
-]
 
-export function initApp() {
-  setState({ tracks: mockTracks })
+
+export async function initApp() {
+  const tracks = await fetchTracks()
+  setState({ tracks })
 }
 
 export function togglePlay() {

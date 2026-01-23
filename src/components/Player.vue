@@ -8,6 +8,11 @@ const title = computed(() => {
   return track?.title || 'No track'
 })
 
+const artist = computed(() => {
+  const track = useState.tracks[useState.currentIndex]
+  return track?.artist || 'No artist'
+})
+
 const cover = computed(() => {
   const track = useState.tracks[useState.currentIndex]
   return track?.cover || '/tracks/default.jpg'
@@ -23,6 +28,7 @@ actions.initApp()
   <div id="player">
     <img id="cover" :src="cover" alt="Cover" />
     <div id="title">{{ title }}</div>
+    <div id="title">{{ artist }}</div>
 
     <div class="controls">
       <button @click="actions.prev">⏮</button>
