@@ -1,15 +1,16 @@
-import { state } from './state'
+import { reactive, readonly } from 'vue'
 import type State from '../types/state'
 
-type Listener = (state: State) => void
+// реактивный state
+const state = reactive<State>({
+  tracks: [],
+  currentIndex: 0,
+  isPlaying: false
+})
 
-const listeners: Listener[] = []
-
-export function subscribe(fn: Listener) {
-  listeners.push(fn)
-}
+// readonly для компонентов, чтобы нельзя было напрямую мутировать
+export const useState = readonly(state)
 
 export function setState(patch: Partial<State>) {
   Object.assign(state, patch)
-  listeners.forEach(fn => fn(state))
 }
