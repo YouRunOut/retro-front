@@ -3,10 +3,37 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #0d0d0d;
-  color: #fff;
   height: 100vh;
+
   display: flex;
   justify-content: center;
   align-items: center;
+
+  color: #fff;
+  background: #0d0d0d;
+  overflow: hidden;
+}
+
+/* размытый фон */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+
+  background-image: var(--bg-image, url('/tracks/default.jpg'));
+  background-size: cover;
+  background-position: center;
+
+  filter: blur(28px);
+  transform: scale(1.15);
+  z-index: -1;
+}
+
+/* затемнение поверх фона */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: -1;
 }
