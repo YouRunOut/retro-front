@@ -1,42 +1,51 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import * as actions from '../core/actions'
 import { useState } from '../core/store'
+import * as audio from '../player/audio'
+import formatTime from '../utils/format-time'
 
-const title = computed(() => {
-  const track = useState.tracks[useState.currentIndex]
-  return track?.title || 'No track'
+const currentTime = ref(0)
+const duration = ref(0)
+
+onMounted(() => {
+  audio.onTimeUpdate((time, dur) => {
+    currentTime.value = time
+    duration.value = dur
+  })
 })
 
-const artist = computed(() => {
-  const track = useState.tracks[useState.currentIndex]
-  return track?.artist || 'No artist'
-})
+const currentTrack = computed(() => {
+  const tracks = useState.tracks
 
-const cover = computed(() => {
-  const track = useState.tracks[useState.currentIndex]
-  return track?.cover || '/tracks/default.jpg'
+  if (!Array.isArray(tracks) || tracks.length === 0) return null
+
+  return useState.tracks[useState.currentIndex] ?? null
 })
 
 const isPlaying = computed(() => useState.isPlaying)
 
-// инициализация треков
-actions.initApp()
 </script>
 
 <template>
   <div id="player">
-    <img id="cover" :src="cover" alt="Cover" />
-    <div id="title">{{ title }}</div>
-    <div id="title">{{ artist }}</div>
+    <img
+      id="cover"
+      :src="currentTrack?.artworkUrl || '.../public/tracks/text-cover2.jpg'"
+      alt="Cover"
+    />
+    <div id="title">{{ currentTrack?.name || 'No track' }}</div>
+    <div id="artist">{{ currentTrack?.author || 'No artist' }}</div>
+    <div id="progress">
+      {{ formatTime(currentTime) }} / {{ formatTime(currentTrack?.duration || 0) }}
+    </div>
 
     <div class="controls">
       <button @click="actions.prev">⏮</button>
       <button @click="actions.togglePlay">
         {{ isPlaying ? '⏸' : '▶' }}
       </button>
-      <button @click="() => { console.log('Next button clicked'); actions.next() }">⏭</button>
-
+      <button @click="actions.next">⏭</button>
     </div>
   </div>
 </template>

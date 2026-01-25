@@ -1,29 +1,41 @@
-import type Track from '../types/track'
+export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
 
-const mockTracks: Track[] = [
-  {
-    id: '1',
-    title: 'Retrowave Night',
-    artist: 'Perturbator',
-    url: '/tracks/track1.mp3',
-    cover: '../../public/test-cover2.jpg',
-    duration: 120,
-  },
-  {
-    id: '2',
-    title: 'Neon Highway',
-    artist: 'Perturbator',
-    url: '/tracks/track2.mp3',
-    cover: '../../public/test-cover.png',
-    duration: 180,
+interface RequestOptions<TBody> {
+  method?: HttpMethod
+  body?: TBody
+  headers?: Record<string, string>
+}
+
+export async function request<TResponse, TBody = unknown>(
+  url: string,
+  options: RequestOptions<TBody> = {}
+): Promise<TResponse> {
+  const { method = 'GET', body, headers = {} } = options
+
+  const fetchOptions: RequestInit = {
+    method,
+    headers: {
+      'Content-Type': 'application/json',
+      ...headers,
+    },
   }
-]
 
+  // добавляем body только если метод не GET
+  if (method !== 'GET' && body !== undefined) {
+    fetchOptions.body = JSON.stringify(body)
+  }
 
-export async function fetchTracks(): Promise<Track[]> {
-  const res = await fetch('/api/tracks')
-  if (!res.ok) throw new Error('Failed to load tracks')
+  const res = await fetch(url, fetchOptions)
+  console.log(`HTTP ${method} ${url} - Status: ${res.status}`)
 
-//   const data = await res.json()
-  return mockTracks //data.tracks 
+  if (!res.ok) {
+    const text = await res.text()
+    throw new Error(`${res.status} ${res.statusText}: ${text}`)
+  }
+
+  if (res.status === 204) {
+    return null as TResponse
+  }
+
+  return res.json() as Promise<TResponse>
 }
