@@ -1,3 +1,6 @@
+import { useErrorModal } from '../composables/useErrorModal'
+
+
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
 
 interface RequestOptions<TBody> {
@@ -26,11 +29,20 @@ export async function request<TResponse, TBody = unknown>(
   }
 
   const res = await fetch(url, fetchOptions)
-  console.log(`HTTP ${method} ${url} - Status: ${res.status}`)
+  // console.log(`HTTP ${method} ${url} - Status: ${res.status}`)
 
   if (!res.ok) {
     const text = await res.text()
-    throw new Error(`${res.status} ${res.statusText}: ${text}`)
+    const msg = `${res.status} ${res.statusText}: ${text}`
+
+    const { showError } = useErrorModal()
+    showError({
+      title: `HTTP ${res.status}`,
+      message: 'Произошла ошибка при запросе данных',
+      details: msg,
+    })
+
+    throw new Error(msg)
   }
 
   if (res.status === 204) {

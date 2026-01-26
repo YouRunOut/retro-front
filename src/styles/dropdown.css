@@ -1,0 +1,40 @@
+.dropdown {
+  text-align: left;
+}
+
+.dropdown-summary {
+  background: none;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* стрелочка */
+.arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+  transform-origin: center;
+}
+
+.arrow.open {
+  transform: rotate(90deg);
+}
+
+.dropdown-content {
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.dropdown-content pre {
+  background: #2c2c2c;
+  padding: 0.5rem;
+  border-radius: 6px;
+  margin: 0;
+  word-break: break-word;
+}

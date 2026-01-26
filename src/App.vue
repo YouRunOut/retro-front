@@ -1,9 +1,17 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
+
 import Player from './components/Player.vue'
-import * as actions from './core/actions'
+import ErrorModal from './components/ErrorModal.vue'
+import { useErrorModal } from './composables/useErrorModal'
+
+const errorModal = useErrorModal()
+
+import { onMounted } from 'vue'
 import { watch } from 'vue'
 import { useState } from './core/store'
+import * as actions from './core/actions'
+
+
 
 onMounted(async () => {
   // инициализация треков
@@ -28,5 +36,15 @@ watch(
 </script>
 
 <template>
+  <RouterView />
+
+  <ErrorModal
+    :visible="errorModal.state.visible"
+    :title="errorModal.state.title"
+    :message="errorModal.state.message"
+    :details="errorModal.state.details"
+    @close="errorModal.hideError"
+  />
+
   <Player />
 </template>
