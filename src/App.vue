@@ -36,7 +36,7 @@ watch(
 </script>
 
 <template>
-  <RouterView />
+  <!-- <RouterView /> -->
 
   <ErrorModal
     :visible="errorModal.state.visible"

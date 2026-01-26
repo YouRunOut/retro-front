@@ -32,7 +32,7 @@ const isPlaying = computed(() => useState.isPlaying)
   <div id="player">
     <img
       id="cover"
-      :src="currentTrack?.artworkUrl || '.../public/tracks/text-cover2.jpg'"
+      :src="currentTrack?.artworkUrl || '/public/default.png'"
       alt="Cover"
     />
     <div id="title">{{ currentTrack?.name || 'No track' }}</div>
