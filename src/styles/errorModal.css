@@ -59,7 +59,7 @@
 
 /* кнопка */
 .modal-close {
-  background: #ff3b3b;
+  background: #ff285e;
   color: #fff;
   border: none;
   padding: 0.5rem 1rem;
@@ -70,5 +70,6 @@
 }
 
 .modal-close:hover {
-  background: #ff5757;
+  background: #ff0095;
+  transition: background 0.2s;
 }

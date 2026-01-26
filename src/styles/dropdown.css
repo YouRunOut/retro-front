@@ -13,6 +13,11 @@
   display: flex;
   align-items: center;
   gap: 6px;
+  transition: color 0.2s ease;
+}
+.dropdown-summary:hover {
+  color: #ff0095;
+  transition: color 0.2s ease;
 }
 
 /* стрелочка */

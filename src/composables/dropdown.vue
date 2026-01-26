@@ -30,7 +30,7 @@ watch(open, async (val) => {
 
 <template>
   <div class="dropdown">
-    <button class="dropdown-summary" @click="toggle">
+    <button class="dropdown-summary unselectable" @click="toggle">
         <span class="arrow" :class="{ open }">▸</span>
         <slot name="summary">{{ title }}</slot>
     </button>

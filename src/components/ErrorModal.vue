@@ -31,22 +31,10 @@ function close() {
     <div class="modal">
         <h3 class="modal-title">{{ title }}</h3>
         <p class="modal-message">{{ message }}</p>
-
-      <!-- <details
-        v-if="details"
-        ref="detailsRef"
-        class="modal-details"
-        @toggle="onToggle"
-    >
-        <summary>Details</summary>
-        <pre>{{ details }}</pre>
-      </details> -->
-        
         <Dropdown title="Details">
             <pre>{{ details }}</pre>
         </Dropdown>
-
-      <button class="modal-close" @click="close">OK</button>
+        <button class="modal-close" @click="close">OK</button>
     </div>
   </div>
 </template>
