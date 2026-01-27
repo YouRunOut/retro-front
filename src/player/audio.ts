@@ -27,6 +27,10 @@ export function onEnded(callback: () => void) {
   audio.onended = callback
 }
 
+export function setVolume(value: number) {
+  audio.volume = Math.min(1, Math.max(0, value))
+}
+
 export function getCurrentTime(): number {
   return audio.currentTime
 }

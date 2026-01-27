@@ -5,20 +5,43 @@
   gap : 20px;
   min-width: 50%;
   justify-content: space-evenly;
+  text-align: center;
+  word-wrap: break-word;
 }
 
-#player img#cover {
-  width: 300px;
-  height: 300px;
+.cover-mask {
+  width: 600px;
+  height: 400px;
+
+  /* маска */
+  -webkit-mask-image: url('/public/cassette.png');
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+
+  mask-image: url('/public/cassette.png');
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+
+  overflow: hidden;
+}
+
+.cover-image {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  border-radius: 8px;
+  /* border-radius: 8px; */
 }
 
 #player #title {
+  font-size: 2.2rem;
+}
+#player #artist {
+  font-size: 1.4rem;
+}
+#player #progress {
   font-size: 1.2rem;
-  text-align: center;
-  max-width: 200px;
-  word-wrap: break-word;
 }
 
 #player .controls {
@@ -27,19 +50,61 @@
   justify-content: space-around;
 }
 
+.volume-slider {
+  width: 100%;
+  max-width: 300px;
+  height: 10px;
+  appearance: none;
+  background: #ff285e50;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+.volume-slider:hover {
+  transform: scale(1.05);
+  background: #ff0095;
+  filter: drop-shadow(0 0 5px #ff0095);
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+.volume.muted {
+  opacity: 0.5;
+}
+.volume-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 10px;
+  height: 14px;
+  /* border-radius: 6px; */
+  background: #ff285e;
+  cursor: pointer;
+  transform: scale(0);
+  transition: transform 0.2s ease, background 0.15s ease;
+}
+
+.volume-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  background: #fff;
+}
+.volume-slider.muted::-webkit-slider-thumb {
+  background: #777;
+}
+
 #player button {
-  background: #00fff0;
+  /* background: #4a4a4a54; */
+  background: #4a4a4a00;
   border: none;
   padding: 10px 16px;
   border-radius: 6px;
   font-size: 1rem;
+  transform: scale(1.5);
   cursor: pointer;
-  color: #000;
+  color: #fff;
   font-weight: bold;
   transition: transform 0.1s, background 0.2s;
 }
 
 #player button:hover {
-  transform: scale(1.1);
-  background: #00d4c7;
+  transform: scale(2);
+  filter: drop-shadow(0 0 10px #ff0095);
 }
