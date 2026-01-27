@@ -21,7 +21,6 @@ export async function fetchTracks(): Promise<Track[]> {
       })
       return []
     }
-
     return data
 
   } catch (err: any) {
