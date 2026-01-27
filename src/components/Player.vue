@@ -48,38 +48,29 @@
         alt="Cover"
       />
     </div>
+    <div class="player-overlay">
+      <div class="label">
+        <div id="title" class="custom-font" :style="{ '--font-block': currentFont }">
+          {{ currentTrack?.name || 'No track' }}
+        </div>
 
-    <div
-      id="title"
-      class="custom-font"
-      :style="{ '--font-block': currentFont }"
-    >
-      {{ currentTrack?.name || 'No track' }}
-    </div>
+        <div id="artist" class="custom-font" :style="{ '--font-block': currentFont }">
+          {{ currentTrack?.author || 'No artist' }}
+        </div>
+      </div>
+      <div class="controls">
+        <button @click="actions.prev">⏮</button>
+        <button @click="actions.togglePlay">
+          {{ isPlaying ? '⏸' : '▶' }}
+        </button>
+        <button @click="actions.next">⏭</button>
+      </div>
 
-    <div
-      id="artist"
-      class="custom-font"
-      :style="{ '--font-block': currentFont }"
-    >
-      {{ currentTrack?.author || 'No artist' }}
+      <div id="progress" class="custom-font" :style="{ '--font-block': currentFont }">
+        {{ formatTime(currentTime) }} / {{ formatTime(currentTrack?.duration || 0) }}
+      </div>
     </div>
-
-    <div
-      id="progress"
-      class="custom-font"
-      :style="{ '--font-block': currentFont }"
-    >
-      {{ formatTime(currentTime) }} / {{ formatTime(currentTrack?.duration || 0) }}
-    </div>
-
-    <div class="controls">
-      <button @click="actions.prev">⏮</button>
-      <button @click="actions.togglePlay">
-        {{ isPlaying ? '⏸' : '▶' }}
-      </button>
-      <button @click="actions.next">⏭</button>
-    </div>
+    
 
     <!-- громкость -->
     <input
