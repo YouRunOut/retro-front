@@ -1,0 +1,28 @@
+@font-face {
+  font-family: 'Globe Trekker Gradient Italic';
+  src: url('public/assets/fonts/GlobeTrekkerGradientItalic.otf') format('opentype');
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Globe Trekker Laser Italic';
+  src: url('public/assets/fonts/GlobeTrekkerLaserItalic.otf') format('opentype');
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Globe Trekker Super Italic';
+  src: url('public/assets/fonts/GlobeTrekkerSuperItalic.otf') format('opentype');
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+
+.custom-font {
+  --font-block: 'Globe Trekker Super Italic', system-ui, sans-serif; /* дефолт */
+  font-family: var(--font-block);
+  font-style: italic;
+  
+}
