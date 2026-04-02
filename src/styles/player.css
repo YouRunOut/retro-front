@@ -19,7 +19,7 @@
   max-width: 100%;
   max-height: 100%;
 
-  aspect-ratio: 5 / 3;
+  aspect-ratio: 5 / 3.1;
   transform-style: preserve-3d;
   transition: transform 0.15s cubic-bezier(.2,.8,.2,1);
   will-change: transform;
@@ -89,11 +89,9 @@
 .cover-image {
   position: absolute;
   inset: 0;
-  /* padding: 5% 7%; */
   width: 100%;
-  height: 100%;
+  height: 101%;
   object-fit: cover;
-  /* transform: translateZ(-52px); */
 
   /* вот здесь МАСКА */
   -webkit-mask-image: url('/public/cassette-glass.png');
@@ -133,26 +131,31 @@
   height: 90%;
 }
 .controls button{
-  background: #4a4a4a00;
+  background: #00000000;
   border: none;
-  padding: 10px 16px;
+  padding: 0px 15px;
   border-radius: 50%;
-  font-size: 1rem;
-  transform: scale(2.0);
+  font-size: 1.8rem;
+  transform: scale(1.0);
   cursor: pointer;
   color: #fff;
   font-weight: bold;
-  transition: transform 0.1s, background 0.2s;
+  transition: transform 0.15s ease, background 0.15s ease;
   line-height: 1.7em; /* смещение по вертикали */
-  letter-spacing: -.25em; /* сдвиг треугольника вправо */
-  text-shadow: 0 -1px 1px rgba(0,0,0,.6), 0 1px 1px rgba(255,255,255,.4);
+  text-shadow: 0 -1px -5px rgba(0,0,0,.6), 0 1px 1px rgba(255,255,255,.4);
+}
+.buttonplay {
+  letter-spacing: -.20em; /* сдвиг треугольника вправо */
 }
 .controls button:focus{
   border: 0px solid #ff0095;
+  background: #00000000;
 }
 .controls button:hover{
-  transform: scale(1.6);
+  transform: scale(1.5);
+  background: #ff0095;
   filter: drop-shadow(0 0 5px #ff0095);
+  transition: transform 0.15s ease, background 0.15s ease;
 }
 
 
@@ -161,7 +164,6 @@
   max-width: 300px;
   height: 10px;
   appearance: none;
-  background: #ff285e50;
   border-radius: 10px;
   border: none;
   outline: none;
@@ -182,7 +184,7 @@
   width: 10px;
   height: 14px;
   /* border-radius: 6px; */
-  background: #ff285e;
+  background: #ff0095;
   cursor: pointer;
   transform: scale(0);
   transition: transform 0.2s ease, background 0.15s ease;

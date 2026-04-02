@@ -6,11 +6,9 @@ import { useErrorModal } from './composables/useErrorModal'
 
 const errorModal = useErrorModal()
 
-import { onMounted } from 'vue'
-import { watch } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import { useState } from './core/store'
 import * as actions from './core/actions'
-
 
 
 onMounted(async () => {
@@ -18,30 +16,52 @@ onMounted(async () => {
   await actions.initApp()
 })
 
+let fadeTimeout: ReturnType<typeof setTimeout> | null = null
+let animationFrameId: number | null = null
+const bg = ref('')
+const bgEl = ref<HTMLElement | null>(null)
 let currentBg: string | null = null
+
 watch(
   () => [useState.currentIndex, useState.tracks],
   () => {
     const track = useState.tracks[useState.currentIndex]
-    if (!track) return
+    if (!track || !bgEl.value) return
 
     const newBg = track.artworkUrl || '/public/default.png'
+    if (newBg === currentBg) return
 
-    if (newBg !== currentBg) {
-      currentBg = newBg
+    currentBg = newBg
 
-      document.body.style.setProperty(
-        '--bg-image',
-        `url(${newBg})`
-      )
-    }},
+    // отменяем предыдущие таймауты/фреймы
+    if (fadeTimeout) clearTimeout(fadeTimeout)
+    if (animationFrameId) cancelAnimationFrame(animationFrameId)
+
+    // сразу начинаем fade-out
+    bgEl.value.classList.add('fade-out')
+
+    fadeTimeout = setTimeout(() => {
+      // смена картинки
+      bg.value = newBg
+
+      // нужно чтобы браузер применил стиль
+      animationFrameId = requestAnimationFrame(() => {
+        bgEl.value?.classList.remove('fade-out')
+      })
+    }, 400)
+  },
   { immediate: true }
 )
-
 
 </script>
 
 <template>
+
+  <div
+    ref="bgEl"
+    class="bg"
+    :style="{ backgroundImage: `url(${bg})` }"
+  />
 
   <ErrorModal
     :visible="errorModal.state.visible"

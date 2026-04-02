@@ -13,13 +13,33 @@ body {
   background: #1e1e1e;
   overflow: hidden;
 }
-.app {
-  position: relative;
-  z-index: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
+.bg {
+  perspective: 500px;
+  position: fixed;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: opacity 0.8s ease;
+  filter: blur(60px);
+  transform: scale(1.15);
+  opacity: 1;
+  z-index: -1;
+
+  /* радиальная прозрачность */
+  -webkit-mask-image: radial-gradient(
+    circle at center,
+    rgba(0,0,0,1) 50%,
+    rgba(0,0,0,0) 80%
+  );
+  mask-image: radial-gradient(
+    circle at center,
+    rgba(0,0,0,1) 10%,
+    rgba(0,0,0,0) 100%
+  );
+}
+
+.bg.fade-out {
+  opacity: 0;
 }
 
 /* размытый фон */
@@ -32,9 +52,6 @@ body::before {
   background-size: cover;
   background-position: center;
   
-
-  filter: blur(4px);
-  transform: scale(1.15);
   z-index: -1;
 }
 
@@ -43,6 +60,7 @@ body::after {
   content: '';
   position: fixed;
   inset: 0;
+  
   background: radial-gradient(
     circle at center,
     rgb(255, 255, 255) 5%,   /* центр */

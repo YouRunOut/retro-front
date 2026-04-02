@@ -65,12 +65,10 @@
           :src="currentTrack?.artworkUrl || '/public/cassette-glass.png'"
           alt="Cover"
         />
-        <!-- <div class="layer-glass between"></div> -->
         <div class="layer-сassette layer-1"></div>
         <div class="layer-сassette layer-2"></div>
         <div class="layer-сassette layer-3"></div>
         <div class="layer-сassette layer-4"></div>
-        <!-- <div class="layer-glass layer-between"></div> -->
         <div class="layer-сassette layer-5"></div>
 
         <!-- <div class="layer-buttons layer-6"></div>
@@ -87,8 +85,8 @@
 
         <div class="controls layer-6 unselectable">
           <button @click="actions.prev">⏮</button>
-          <button class="buttonplay" @click="actions.togglePlay">
-            {{ isPlaying ? '⏸' : '▶' }}
+          <button :class="{ buttonplay: !isPlaying }" @click="actions.togglePlay">
+            {{ isPlaying ? '⏹' : '▶' }}
           </button>
           <button @click="actions.next">⏭</button>
         </div>
@@ -97,10 +95,10 @@
 
     </div>
 
-     <!-- <div class="controls unselectable">
+      <!-- <div class="controls layer-6 unselectable">
         <button @click="actions.prev">⏮</button>
-        <button @click="actions.togglePlay">
-          {{ isPlaying ? '⏸' : '▶' }}
+        <button :class="{ buttonplay: !isPlaying }" @click="actions.togglePlay">
+          {{ isPlaying ? '⏹' : '▶' }}
         </button>
         <button @click="actions.next">⏭</button>
       </div> -->
@@ -129,7 +127,6 @@
       {{ formatTime(currentTime) }} / {{ formatTime(duration || 0) }}
     </div>
 
-    
 
     <!-- громкость -->
     <input
@@ -144,8 +141,9 @@
       @input="actions.setVolume(Number(($event.target as HTMLInputElement).value))"
     />
 
+
     <!-- рейтинг -->
-    <div v-if="currentTrack" class="rating">
+    <!-- <div v-if="currentTrack" class="rating"> -->
       <!-- <label v-for="i in 5" :key="i"> -->
         <!-- @change="actions.rateCurrentTrack(i, currentTrack.id)" -->
         <!-- <input
@@ -172,7 +170,7 @@
       >
         {{ i <= (hoverRating || (currentTrack?.rating ?? 0)) ? '★' : '☆' }}
       </button> -->
-    </div>
+    <!-- </div> -->
 
   </div>
 </template>
