@@ -5,9 +5,24 @@
   import { useState, currentFont } from '../core/store'
   import * as audio from '../player/audio'
   import formatTime from '../utils/format-time'
+  import { useTilt } from '../composables/useTilt'
+  import { useIdleTilt } from '../composables/useIdleTilt'
+
+  const cover = ref<HTMLElement | null>(null)
+
+  // mouse tilt
+  useTilt(() => cover.value)
+
+  // idle tilt
+  useIdleTilt(() => cover.value, {
+    idleDelay: 2000,
+    intensity: 15,
+    speed: 0.03,
+  })
 
   const currentTime = ref(0)
   const duration = ref(0)
+  const hoverRating = ref(0)
 
   onMounted(() => {
     audio.onTimeUpdate((time, dur) => {
@@ -41,13 +56,54 @@
 
 <template>
   <div id="player">
-    <div class="cover-mask">
-      <img
-        class="cover-image"
-        :src="currentTrack?.artworkUrl || '/public/default.png'"
-        alt="Cover"
-      />
+
+    <div class="cover-scene">
+
+      <div class="cover-wrapper unselectable" ref="cover">
+        <img
+          class="cover-image layer-between"
+          :src="currentTrack?.artworkUrl || '/public/cassette-glass.png'"
+          alt="Cover"
+        />
+        <!-- <div class="layer-glass between"></div> -->
+        <div class="layer-сassette layer-1"></div>
+        <div class="layer-сassette layer-2"></div>
+        <div class="layer-сassette layer-3"></div>
+        <div class="layer-сassette layer-4"></div>
+        <!-- <div class="layer-glass layer-between"></div> -->
+        <div class="layer-сassette layer-5"></div>
+
+        <!-- <div class="layer-buttons layer-6"></div>
+        <div class="layer-buttons layer-7"></div>
+        <div class="layer-buttons layer-8"></div>
+        <div class="layer-buttons layer-9"></div>
+        <div class="layer-buttons layer-10"></div> -->
+        
+        <img
+          class="cover-frame"
+          src="/public/cassette.png"
+          alt=""
+        />
+
+        <div class="controls layer-6 unselectable">
+          <button @click="actions.prev">⏮</button>
+          <button class="buttonplay" @click="actions.togglePlay">
+            {{ isPlaying ? '⏸' : '▶' }}
+          </button>
+          <button @click="actions.next">⏭</button>
+        </div>
+
+      </div>
+
     </div>
+
+     <!-- <div class="controls unselectable">
+        <button @click="actions.prev">⏮</button>
+        <button @click="actions.togglePlay">
+          {{ isPlaying ? '⏸' : '▶' }}
+        </button>
+        <button @click="actions.next">⏭</button>
+      </div> -->
 
     <div
       id="title"
@@ -70,16 +126,10 @@
       class="custom-font"
       :style="{ '--font-block': currentFont }"
     >
-      {{ formatTime(currentTime) }} / {{ formatTime(currentTrack?.duration || 0) }}
+      {{ formatTime(currentTime) }} / {{ formatTime(duration || 0) }}
     </div>
 
-    <div class="controls">
-      <button @click="actions.prev">⏮</button>
-      <button @click="actions.togglePlay">
-        {{ isPlaying ? '⏸' : '▶' }}
-      </button>
-      <button @click="actions.next">⏭</button>
-    </div>
+    
 
     <!-- громкость -->
     <input
@@ -95,16 +145,34 @@
     />
 
     <!-- рейтинг -->
-    <!-- <div class="rating">
-      <button
+    <div v-if="currentTrack" class="rating">
+      <!-- <label v-for="i in 5" :key="i"> -->
+        <!-- @change="actions.rateCurrentTrack(i, currentTrack.id)" -->
+        <!-- <input
+          type="radio"
+          class="button"
+          name="rating"
+          :value="i"
+          v-model="currentTrack.rating"
+          
+          hidden
+        /> -->
+        <!-- <span>
+          {{ i <= (hoverRating > 0 ? hoverRating : (currentTrack?.rating ?? 0)) ? '☆' : '★' }}
+        </span> -->
+      <!-- </label> -->
+      <!-- @click="actions.rateCurrentTrack(i, currentTrack?.id)" -->
+      <!-- :class="{ active: i <= (currentTrack?.rating ?? 0) }" -->
+      <!-- <button
         v-for="i in 5"
         :key="i"
-        @click="actions.rateCurrentTrack(i)"
-        :class="{ active: i <= (currentTrack?.rating ?? 0) }"
+        @mouseenter="hoverRating = i"
+        @mouseleave="hoverRating = 0"
+        
       >
-        ★
-      </button>
-    </div> -->
+        {{ i <= (hoverRating || (currentTrack?.rating ?? 0)) ? '★' : '☆' }}
+      </button> -->
+    </div>
 
   </div>
 </template>

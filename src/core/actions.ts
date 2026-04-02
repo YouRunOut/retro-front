@@ -3,8 +3,8 @@ import { fetchTracks } from '../api/tracks.api'
 import { rateTrack } from '../api/rating'
 
 import * as audio from '../player/audio'
-// import { useErrorModal } from '../composables/useErrorModal'
-// import formatTime from '../utils/format-time'
+import { useErrorModal } from '../composables/useErrorModal'
+import formatTime from '../utils/format-time'
 
 
 export async function initApp() {
@@ -16,8 +16,8 @@ export async function initApp() {
 
 /* ===================== rating ===================== */
 
-export async function rateCurrentTrack(value: number) {
-  const track = useState.tracks[useState.currentIndex]
+export async function rateCurrentTrack(rating: number, trackId?: string) {
+  const track = useState.tracks[trackId ? useState.tracks.findIndex(t => t.id === trackId) : useState.currentIndex]
   if (!track) return
 
   // optimistic update
@@ -25,7 +25,7 @@ export async function rateCurrentTrack(value: number) {
   // setState({ tracks: [...useState.tracks] })
 
   try {
-    await rateTrack(track.id, value)
+    await rateTrack(track.id, rating)
   } catch {
     // при желании можно откатить
   }
@@ -57,8 +57,8 @@ export function togglePlay() {
 export function next() {
   // const { showError } = useErrorModal()
   // showError({
-  //   title: `Track ended`,
-  //   message: `Трек ${useState.tracks[useState.currentIndex]?.name} закончился на ${formatTime(audio.getCurrentTime())} из ${formatTime(audio.getDuration())}`,
+  //   title: `Track duration`,
+  //   message: `Трек ${useState.tracks[useState.currentIndex]?.name} закончился на ${formatTime(audio.getCurrentTime())} из ${formatTime(audio.getDurationTime())}`,
   //   details: audio.getCurrentTime().toString(),
   // })
   const nextIndex = (useState.currentIndex + 1) % useState.tracks.length

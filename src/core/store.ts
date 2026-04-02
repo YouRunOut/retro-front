@@ -12,14 +12,10 @@ const state = reactive<State>({
 })
 
 // readonly для компонентов, чтобы нельзя было напрямую мутировать
-export const useState = readonly(state)
+export const useState = state //readonly(state)
 
 export function setState(patch: Partial<State>) {
   Object.assign(state, patch)
 }
-
-// const FONT_MAP = {
-//   GlobeTrekker: "Globe Trekker Gradient Italic"
-// }
 
 

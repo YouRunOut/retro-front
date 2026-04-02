@@ -18,17 +18,23 @@ onMounted(async () => {
   await actions.initApp()
 })
 
+let currentBg: string | null = null
 watch(
   () => [useState.currentIndex, useState.tracks],
   () => {
     const track = useState.tracks[useState.currentIndex]
-    if (track) {
+    if (!track) return
+
+    const newBg = track.artworkUrl || '/public/default.png'
+
+    if (newBg !== currentBg) {
+      currentBg = newBg
+
       document.body.style.setProperty(
         '--bg-image',
-        `url(${track.artworkUrl || '/tracks/test-cover2.jpg'})`
+        `url(${newBg})`
       )
-    }
-  },
+    }},
   { immediate: true }
 )
 

@@ -10,8 +10,16 @@ body {
   align-items: center;
 
   color: #fff;
-  background: #0d0d0d;
+  background: #1e1e1e;
   overflow: hidden;
+}
+.app {
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 /* размытый фон */
@@ -23,8 +31,9 @@ body::before {
   background-image: var(--bg-image, url('/public/default.png'));
   background-size: cover;
   background-position: center;
+  
 
-  filter: blur(20px);
+  filter: blur(4px);
   transform: scale(1.15);
   z-index: -1;
 }
@@ -34,6 +43,11 @@ body::after {
   content: '';
   position: fixed;
   inset: 0;
+  background: radial-gradient(
+    circle at center,
+    rgb(255, 255, 255) 5%,   /* центр */
+    rgba(0, 0, 0, 0) 100%  /* прозрачный по краям */
+  );
   background: radial-gradient(
     circle at center,
     rgba(0, 0, 0, 0) 5%,   /* прозрачный центр */

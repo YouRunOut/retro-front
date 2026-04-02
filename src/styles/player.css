@@ -2,53 +2,159 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap : 20px;
-  min-width: 50%;
+  gap : 15px;
+  width: 100%;
   justify-content: space-evenly;
   text-align: center;
   word-wrap: break-word;
 }
+.cover-scene {
+  perspective: 1000px;
+  width: clamp(300px, 40vw, 600px);
+  margin-bottom: 5%;
+}
+.cover-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
 
-.cover-mask {
-  width: 600px;
-  height: 400px;
+  aspect-ratio: 5 / 3;
+  transform-style: preserve-3d;
+  transition: transform 0.15s cubic-bezier(.2,.8,.2,1);
+  will-change: transform;
+}
+.cover-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
 
-  /* маска */
-  -webkit-mask-image: url('/public/cassette.png');
+  background: radial-gradient(
+    circle at var(--x) var(--y),
+    #ff00950e,
+    transparent 50%
+  );
+
+  transform: translateZ(30px);
+  pointer-events: none;
+}
+
+
+/* кнопки на кассете */
+.layer-buttons {
+  /* position: absolute; */
+  inset: 0;
+  /* background-image: url('/public/cassette.png'); */
+  /* background-size: cover; */
+}
+/* "задняя стенка" кассеты */
+.layer-сassette {
+  position: absolute;
+  inset: 0;
+  background-image: url('/public/cassette.png');
+  background-size: cover;
+}
+/* "стекло" кассеты */
+.layer-glass {
+  position: absolute;
+  inset: 0;
+  background-image: url('/public/cassette-glass.png');
+  background-size: cover;
+}
+
+/* задние слои */
+.layer-between { transform: translateZ(-9px); opacity: 1.0; }
+.layer-1 { transform: translateZ(-10px); opacity: 1.0; }
+.layer-2 { transform: translateZ(-20px); opacity: 1.0; }
+.layer-3 { transform: translateZ(-30px); opacity: 1.0; }
+.layer-4 { transform: translateZ(-40px); opacity: 1.0; }
+.layer-5 { transform: translateZ(-50px); opacity: 1.0; }
+/* передние слои */
+.layer-6 { transform: translateZ(20px); opacity: 1.0; }
+.layer-7 { transform: translateZ(20px); opacity: 1.0; }
+.layer-8 { transform: translateZ(30px); opacity: 1.0; }
+.layer-9 { transform: translateZ(40px); opacity: 1.0; }
+.layer-10 { transform: translateZ(50px); opacity: 1.0; }
+
+.cover-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  filter: brightness(0.1) contrast(0.8) drop-shadow(0 0 50px #000000);
+  transform: translateZ(0);
+}
+
+.cover-image {
+  position: absolute;
+  inset: 0;
+  /* padding: 5% 7%; */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* transform: translateZ(-52px); */
+
+  /* вот здесь МАСКА */
+  -webkit-mask-image: url('/public/cassette-glass.png');
   -webkit-mask-size: contain;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
 
-  mask-image: url('/public/cassette.png');
+  mask-image: url('/public/cassette-glass.png');
   mask-size: contain;
   mask-repeat: no-repeat;
   mask-position: center;
-
-  overflow: hidden;
+  filter: brightness(1) ;
 }
 
-.cover-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* border-radius: 8px; */
-}
 
 #player #title {
-  font-size: 2.2rem;
+  color: #fff;
+  font-size: clamp(30px, 2.5vw, 2.2rem);
 }
+
 #player #artist {
-  font-size: 1.4rem;
+  color: #fff;
+  font-size: clamp(1rem, 1.8vw, 1.4rem);
 }
+
 #player #progress {
-  font-size: 1.2rem;
+  color: #fff;
+  font-size: clamp(0.9rem, 1.5vw, 1.2rem);
 }
 
 #player .controls {
+  /* position: absolute; */
   display: flex;
   gap : 20px;
   justify-content: space-around;
+  align-items: flex-end;
+  height: 90%;
 }
+.controls button{
+  background: #4a4a4a00;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 50%;
+  font-size: 1rem;
+  transform: scale(2.0);
+  cursor: pointer;
+  color: #fff;
+  font-weight: bold;
+  transition: transform 0.1s, background 0.2s;
+  line-height: 1.7em; /* смещение по вертикали */
+  letter-spacing: -.25em; /* сдвиг треугольника вправо */
+  text-shadow: 0 -1px 1px rgba(0,0,0,.6), 0 1px 1px rgba(255,255,255,.4);
+}
+.controls button:focus{
+  border: 0px solid #ff0095;
+}
+.controls button:hover{
+  transform: scale(1.6);
+  filter: drop-shadow(0 0 5px #ff0095);
+}
+
 
 .volume-slider {
   width: 100%;
@@ -90,8 +196,7 @@
   background: #777;
 }
 
-#player button {
-  /* background: #4a4a4a54; */
+/* #player button {
   background: #4a4a4a00;
   border: none;
   padding: 10px 16px;
@@ -107,4 +212,45 @@
 #player button:hover {
   transform: scale(2);
   filter: drop-shadow(0 0 10px #ff0095);
+} */
+
+
+.rating {
+  color: #fff;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  gap: 20px;
+}
+
+.rating label {
+  cursor: pointer;
+  font-size: 24px;
+  transform: scale(1.5);
+  transition: transform 0.1s, background 0.2s;
+}
+
+/* прячем радио */
+.rating input {
+  display: none;
+}
+
+/* дефолт */
+.rating span {
+  color: #fff;
+  
+}
+
+/* hover */
+.rating label:hover span,
+.rating label:hover ~ label span {
+  color: gold;
+  transform: scale(2);
+  filter: drop-shadow(0 0 10px gold);
+}
+
+/* выбранное */
+.rating input:checked ~ label span,
+.rating input:checked + span {
+  color: gold;
 }
