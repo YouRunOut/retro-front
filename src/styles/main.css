@@ -20,7 +20,7 @@ body {
   background-size: cover;
   background-position: center;
   transition: opacity 0.8s ease;
-  filter: blur(10px);
+  filter: blur(30px);
   transform: scale(1.15);
   opacity: 1;
   z-index: -1;
@@ -33,7 +33,7 @@ body {
   );
   mask-image: radial-gradient(
     circle at center,
-    rgba(0,0,0,1) 20%,
+    rgba(0,0,0,1) 10%,
     rgba(0,0,0,0) 100%
   );
 }
@@ -80,3 +80,4 @@ body::after {
   -ms-user-select: none;     /* IE 10+ и Edge */
   user-select: none;         /* Стандартный синтаксис (Chrome, Firefox, Opera) */
 }
+

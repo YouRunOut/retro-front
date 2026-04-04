@@ -71,5 +71,7 @@ watch(
     @close="errorModal.hideError"
   />
 
+  
+
   <Player />
 </template>

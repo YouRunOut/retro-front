@@ -56,7 +56,11 @@
 
 <template>
   <div id="player">
-
+    <img
+      class="logo"
+      src="/public/logo_pulse.png"
+      alt="Logo"
+    >
     <div class="cover-scene">
 
       <div class="cover-wrapper unselectable" ref="cover">
