@@ -29,9 +29,10 @@
   position: absolute;
   inset: 0;
 
+  /* блик на кассете */
   background: radial-gradient(
     circle at var(--x) var(--y),
-    #ff00950e,
+    #f159ff28,
     transparent 50%
   );
 
@@ -153,7 +154,7 @@
 }
 .controls button:hover{
   transform: scale(1.5);
-  background: #ff0095;
+  /* background: #ff0095; */
   filter: drop-shadow(0 0 5px #ff0095);
   transition: transform 0.15s ease, background 0.15s ease;
 }
@@ -197,24 +198,6 @@
 .volume-slider.muted::-webkit-slider-thumb {
   background: #777;
 }
-
-/* #player button {
-  background: #4a4a4a00;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 6px;
-  font-size: 1rem;
-  transform: scale(1.5);
-  cursor: pointer;
-  color: #fff;
-  font-weight: bold;
-  transition: transform 0.1s, background 0.2s;
-}
-
-#player button:hover {
-  transform: scale(2);
-  filter: drop-shadow(0 0 10px #ff0095);
-} */
 
 
 .rating {

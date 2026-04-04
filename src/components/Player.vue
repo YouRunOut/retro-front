@@ -16,8 +16,8 @@
   // idle tilt
   useIdleTilt(() => cover.value, {
     idleDelay: 2000,
-    intensity: 15,
-    speed: 0.03,
+    intensity: 5,
+    speed: 0.02,
   })
 
   const currentTime = ref(0)

@@ -20,7 +20,7 @@ body {
   background-size: cover;
   background-position: center;
   transition: opacity 0.8s ease;
-  filter: blur(60px);
+  filter: blur(10px);
   transform: scale(1.15);
   opacity: 1;
   z-index: -1;
@@ -33,7 +33,7 @@ body {
   );
   mask-image: radial-gradient(
     circle at center,
-    rgba(0,0,0,1) 10%,
+    rgba(0,0,0,1) 20%,
     rgba(0,0,0,0) 100%
   );
 }
@@ -48,7 +48,7 @@ body::before {
   position: fixed;
   inset: 0;
 
-  background-image: var(--bg-image, url('/public/default.png'));
+  background-image: var(--bg-image, url('/public/default2.jpg'));
   background-size: cover;
   background-position: center;
   
@@ -64,12 +64,12 @@ body::after {
   background: radial-gradient(
     circle at center,
     rgb(255, 255, 255) 5%,   /* центр */
-    rgba(0, 0, 0, 0) 100%  /* прозрачный по краям */
+    rgba(0, 0, 0, 0) 90%  /* прозрачный по краям */
   );
   background: radial-gradient(
     circle at center,
     rgba(0, 0, 0, 0) 5%,   /* прозрачный центр */
-    rgba(0, 0, 0, 1) 100%  /* затемнение по краям */
+    rgba(0, 0, 0, 1) 90%  /* затемнение по краям */
   );
   z-index: -1;
 }
