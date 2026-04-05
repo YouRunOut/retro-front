@@ -48,13 +48,10 @@
   pointer-events: none;
 }
 
-
 /* кнопки на кассете */
 .layer-buttons {
-  /* position: absolute; */
+  position: absolute;
   inset: 0;
-  /* background-image: url('/public/cassette.png'); */
-  /* background-size: cover; */
 }
 /* "задняя стенка" кассеты */
 .layer-сassette {
@@ -62,6 +59,33 @@
   inset: 0;
   background-image: url('/public/cassette.png');
   background-size: cover;
+}
+.tape {
+  position: absolute;
+  inset: 0;
+  top: 17%;
+  width: 36%;
+  aspect-ratio: 1 / 1;
+  transform: translate(-50%, -50%);
+  transform-origin: center;
+  
+  /* overflow: hidden;
+  clip-path: circle(var(--r) at center); */
+  -webkit-mask-image: radial-gradient(circle at center,
+    black var(--r),
+    transparent calc(var(--r) + 1%)
+  );
+  mask-image: radial-gradient(circle at center,
+    black var(--r),
+    transparent calc(var(--r) + 1%)
+  );
+
+}
+.t-left {
+  left: 11%;
+}
+.t-right {
+  left: 53.5%;
 }
 /* "стекло" кассеты */
 .layer-glass {
@@ -73,14 +97,15 @@
 
 /* задние слои */
 .layer-between { transform: translateZ(-9px); opacity: 1.0; }
+.layer-between2 { transform: translateZ(-31px); opacity: 1.0; }
 .layer-1 { transform: translateZ(-10px); opacity: 1.0; }
 .layer-2 { transform: translateZ(-20px); opacity: 1.0; }
 .layer-3 { transform: translateZ(-30px); opacity: 1.0; }
 .layer-4 { transform: translateZ(-40px); opacity: 1.0; }
 .layer-5 { transform: translateZ(-50px); opacity: 1.0; }
 /* передние слои */
-.layer-6 { transform: translateZ(20px); opacity: 1.0; }
-.layer-7 { transform: translateZ(20px); opacity: 1.0; }
+.layer-6 { transform: translateZ(5px); opacity: 0.3; }
+.layer-7 { transform: translateZ(30px); opacity: 1.0; }
 .layer-8 { transform: translateZ(30px); opacity: 1.0; }
 .layer-9 { transform: translateZ(40px); opacity: 1.0; }
 .layer-10 { transform: translateZ(50px); opacity: 1.0; }

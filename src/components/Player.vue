@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-  import { computed, onMounted, ref } from 'vue'
+  import { computed, onMounted, ref, watch } from 'vue'
   import * as actions from '../core/actions'
   import { useState, currentFont } from '../core/store'
   import * as audio from '../player/audio'
@@ -23,6 +23,25 @@
   const currentTime = ref(0)
   const duration = ref(0)
   const hoverRating = ref(0)
+
+  const MIN_R = 40
+  const MAX_R = 70
+
+  const radii = computed(() => {
+    const p = duration.value > 0 
+      ? Math.min(1, Math.max(0, currentTime.value / duration.value)) 
+      : 0
+      
+    return {
+      left:  MIN_R + (MAX_R - MIN_R) * p,
+      right: MAX_R - (MAX_R - MIN_R) * p
+    }
+  })
+  
+  watch(radii, (val) => {
+    console.log(`Left: ${val.left.toFixed(1)}% | Right: ${val.right.toFixed(1)}%`)
+  }, { immediate: true })
+
 
   onMounted(() => {
     audio.onTimeUpdate((time, dur) => {
@@ -61,12 +80,27 @@
       src="/public/logo_pulse.png"
       alt="Logo"
     >
+
+    <!-- кассета -->
     <div class="cover-scene">
 
       <div class="cover-wrapper unselectable" ref="cover">
         <img
           class="cover-image layer-between"
           :src="currentTrack?.artworkUrl || '/public/cassette-glass.png'"
+          alt="Cover"
+        />
+        <!-- src="/public/tape-anim.gif" -->
+        <img
+          class="tape t-left layer-between2"
+          :style="{ '--r': `${radii.left}%` }"
+          :src="!isPlaying ? '/public/tape2.png' : '/public/tape-anim2.gif'"
+          alt="Cover"
+        />
+        <img
+          class="tape t-right layer-between2"
+          :style="{ '--r': `${radii.right}%` }"
+          :src="!isPlaying ? '/public/tape0.png' : '/public/tape-anim2.gif'"
           alt="Cover"
         />
         <div class="layer-сassette layer-1"></div>
@@ -86,8 +120,14 @@
           src="/public/cassette.png"
           alt=""
         />
-
-        <div class="controls layer-6 unselectable">
+        <div class="controls layer-buttons layer-6 unselectable">
+          <button>⏮</button>
+          <button :class="{ buttonplay: !isPlaying }">
+            {{ isPlaying ? '⏹' : '▶' }}
+          </button>
+          <button>⏭</button>
+        </div>
+        <div class="controls layer-7 unselectable">
           <button @click="actions.prev">⏮</button>
           <button :class="{ buttonplay: !isPlaying }" @click="actions.togglePlay">
             {{ isPlaying ? '⏹' : '▶' }}
@@ -99,13 +139,13 @@
 
     </div>
 
-      <!-- <div class="controls layer-6 unselectable">
-        <button @click="actions.prev">⏮</button>
-        <button :class="{ buttonplay: !isPlaying }" @click="actions.togglePlay">
-          {{ isPlaying ? '⏹' : '▶' }}
-        </button>
-        <button @click="actions.next">⏭</button>
-      </div> -->
+    <!-- <div class="controls layer-6 unselectable">
+      <button @click="actions.prev">⏮</button>
+      <button :class="{ buttonplay: !isPlaying }" @click="actions.togglePlay">
+        {{ isPlaying ? '⏹' : '▶' }}
+      </button>
+      <button @click="actions.next">⏭</button>
+    </div> -->
 
     <div
       id="title"
