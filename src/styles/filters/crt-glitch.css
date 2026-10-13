@@ -1,0 +1,107 @@
+@keyframes glitch-jitter {
+  0% {
+    transform: translateX(-14px) translateY(5px) skewX(8deg) scaleX(1.07) scaleY(0.91);
+    text-shadow: 14px 5px 2px #a82ad6, -14px -5px 0 #CA2AD6;
+    opacity: 0.5;
+    filter: blur(1px);
+    letter-spacing: 4px;
+  }
+  6% {
+    transform: translateX(16px) translateY(-5px) skewX(-9deg) scaleX(0.9) scaleY(1.08);
+    text-shadow: -16px -5px 0 #CA2AD6, 16px 5px 2px #b82ad6, 0 0 18px #CA2AD6;
+    opacity: 0.45;
+    filter: blur(1.5px);
+    letter-spacing: -3px;
+  }
+  12% {
+    transform: translateX(-10px) translateY(3px) skewX(6deg) scaleX(1.05) scaleY(0.94);
+    text-shadow: 10px 3px 0 #b82ad6, -10px -3px 0 #a82ad6, 0 0 8px #CA2AD6;
+    opacity: 0.6;
+    filter: blur(0.5px);
+    letter-spacing: 2px;
+  }
+  18% {
+    transform: translateX(8px) translateY(-2px) skewX(-4deg) scaleX(0.95);
+    text-shadow: -8px -2px 0 #a82ad6, 8px 2px 0 #CA2AD6;
+    opacity: 0.75;
+    letter-spacing: -1px;
+  }
+  25% {
+    transform: translateX(-5px) translateY(1px) skewX(3deg);
+    text-shadow: 5px 1px 0 #CA2AD6, -3px -1px 0 #b82ad6;
+    opacity: 0.85;
+    filter: blur(0);
+    letter-spacing: 0;
+  }
+  33% {
+    transform: translateX(3px) translateY(-1px) skewX(-1deg);
+    text-shadow: -3px -1px 0 #b82ad6, 2px 0 0 #CA2AD6;
+    opacity: 0.9;
+  }
+  42% {
+    transform: translateX(-2px);
+    text-shadow: 2px 0 0 #CA2AD6;
+    filter: blur(0);
+  }
+  50%, 100% {
+    transform: translateX(0) skewX(0deg) scaleX(1) scaleY(1);
+    text-shadow: inherit;
+    opacity: 1;
+    letter-spacing: inherit;
+    filter: blur(0);
+  }
+}
+
+@keyframes glitch-btn {
+  0% {
+    transform: translateX(-1.5px) skewX(1deg);
+    text-shadow: 1.5px 0 0 #b82ad6, -1px 0 0 #CA2AD6;
+    opacity: 0.92;
+  }
+  10% {
+    transform: translateX(2px) skewX(-1deg);
+    text-shadow: -2px 0 0 #b82ad6, 1.5px 0 0 #CA2AD6;
+    opacity: 0.9;
+  }
+  20% {
+    transform: translateX(-1.5px) skewX(0.5deg);
+    text-shadow: 1.5px 0 0 #CA2AD6, -1px 0 0 #b82ad6;
+    opacity: 0.95;
+  }
+  30% {
+    transform: translateX(1px);
+    text-shadow: -1px 0 0 #b82ad6, 0.5px 0 0 #CA2AD6;
+  }
+  40%, 100% {
+    transform: translateX(0) skewX(0deg);
+    text-shadow: inherit;
+    opacity: 1;
+  }
+}
+
+html.crt-glitch .back-btn:hover,
+html.crt-glitch .back-btn:focus-visible,
+html.crt-glitch .filters-link:hover,
+html.crt-glitch .filters-link:focus-visible,
+html.crt-glitch .reset-btn:hover,
+html.crt-glitch .reset-btn:focus-visible,
+html.crt-glitch .reset-tags-btn:hover,
+html.crt-glitch .reset-tags-btn:focus-visible,
+html.crt-glitch .confirm-btn:hover,
+html.crt-glitch .confirm-btn:focus-visible,
+html.crt-glitch .toggle-option:hover,
+html.crt-glitch .toggle-option:focus-visible,
+html.crt-glitch .tag-btn:hover,
+html.crt-glitch .tag-btn:focus-visible,
+html.crt-glitch .app-select-trigger:hover,
+html.crt-glitch .app-select-trigger:focus-visible,
+html.crt-glitch .menu-panel a:hover,
+html.crt-glitch .menu-panel a:focus-visible {
+  animation: glitch-btn 0.4s linear;
+}
+
+html.crt-glitch .track-info.glitch-active #title,
+html.crt-glitch .track-info.glitch-active #artist,
+html.crt-glitch .track-info.glitch-active #progress {
+  animation: glitch-jitter 0.5s linear;
+}

@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import Dropdown from '../composables/dropdown.vue'
+import { useLocale } from '../composables/useLocale'
+
+const { t } = useLocale()
 
 defineProps({
   visible: Boolean,
@@ -31,10 +34,10 @@ function close() {
     <div class="modal">
         <h3 class="modal-title">{{ title }}</h3>
         <p class="modal-message">{{ message }}</p>
-        <Dropdown title="Details">
+        <Dropdown :title="t('common.details')">
             <pre>{{ details }}</pre>
         </Dropdown>
-        <button class="modal-close" @click="close">OK</button>
+        <button class="modal-close" @click="close">{{ t('common.ok') }}</button>
     </div>
   </div>
 </template>

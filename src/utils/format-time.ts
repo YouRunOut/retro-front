@@ -1,5 +1,5 @@
 export default function formatTime(seconds: number): string {
-  if (!seconds || isNaN(seconds)) return '00:00'
+  if (!isFinite(seconds) || seconds < 0) return '00:00'
   const mins = Math.floor(seconds / 60)
   const secs = Math.floor(seconds % 60)
   const mm = mins.toString().padStart(2, '0')

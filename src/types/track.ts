@@ -6,4 +6,5 @@ export default interface Track {
   streamUrl: string
   artworkUrl?: string
   rating?: number
+  tags?: string[]
 }

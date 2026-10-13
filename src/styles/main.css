@@ -1,9 +1,19 @@
 /* базовые стили страницы */
+html {
+  overflow: hidden;
+}
+
+* {
+  letter-spacing: 0.125em;
+}
+
 body {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  padding-bottom: max(env(safe-area-inset-bottom, 0px), var(--safe-bottom, 0px));
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  height: 100vh;
+  height: var(--app-height, 100dvh);
 
   display: flex;
   justify-content: center;
@@ -13,23 +23,37 @@ body {
   background: #1e1e1e;
   overflow: hidden;
 }
+.notice {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: 5px 15px;
+  font-size: 14px;
+  color: #ffffff2f;
+  z-index: 1000;
+}
 .bg {
-  perspective: 500px;
   position: fixed;
+  inset: 0;
+  z-index: -1;
+  transition: transform 8s ease-in-out;
+}
+
+.bg-layer {
+  display: flex;
+  position: absolute;
   inset: 0;
   background-size: cover;
   background-position: center;
-  transition: opacity 0.8s ease;
   filter: blur(30px);
-  transform: scale(1.15);
-  opacity: 1;
-  z-index: -1;
+  transform: scale(1.15) var(--bg-3d, perspective(800px));
+  opacity: 0;
+  transition: opacity 0.8s ease;
 
-  /* радиальная прозрачность */
   -webkit-mask-image: radial-gradient(
     circle at center,
-    rgba(0,0,0,1) 50%,
-    rgba(0,0,0,0) 80%
+    rgba(0,0,0,1) 10%,
+    rgba(0,0,0,0) 100%
   );
   mask-image: radial-gradient(
     circle at center,
@@ -38,8 +62,8 @@ body {
   );
 }
 
-.bg.fade-out {
-  opacity: 0;
+.bg-layer.visible {
+  opacity: 1;
 }
 
 /* размытый фон */
@@ -47,11 +71,12 @@ body::before {
   content: '';
   position: fixed;
   inset: 0;
-
-  background-image: var(--bg-image, url('/public/default2.jpg'));
+  overflow: hidden;
+  background-image: var(--bg-image, url('/default.jpg'));
   background-size: cover;
   background-position: center;
-  
+  transform: scale(var(--bg-body-scale, 1.2)) rotateX(var(--bg-body-x, 0deg)) rotateY(var(--bg-body-y, 0deg));
+  transition: transform 8s ease-in-out;
   z-index: -1;
 }
 
@@ -60,7 +85,7 @@ body::after {
   content: '';
   position: fixed;
   inset: 0;
-  
+  overflow: hidden;
   background: radial-gradient(
     circle at center,
     rgb(255, 255, 255) 5%,   /* центр */
@@ -75,9 +100,36 @@ body::after {
 }
 
 
+/* ===================== loader ===================== */
+.loader-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1001;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(202, 42, 214, 0.15);
+  border-top-color: #CA2AD6;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
 .unselectable {
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none;     /* IE 10+ и Edge */
   user-select: none;         /* Стандартный синтаксис (Chrome, Firefox, Opera) */
 }
+
+
 

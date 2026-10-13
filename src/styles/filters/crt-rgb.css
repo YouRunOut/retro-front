@@ -1,0 +1,42 @@
+.crt-rgb-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  pointer-events: none;
+  overflow: hidden;
+  background: transparent;
+  opacity: var(--rgb-master-opacity, 1);
+  text-shadow: 0 0 0.2em currentColor,
+    1px 1px rgba(255, 0, 255, 0.5),
+    -1px -1px rgba(0, 255, 255, 0.4);
+}
+
+.crt-rgb-overlay::before,
+.crt-rgb-overlay::after {
+  content: '';
+  transform: translateZ(0);
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+}
+
+.crt-rgb-overlay::before {
+  background: repeating-linear-gradient(
+    rgba(255, 0, 0, var(--rgb-r-intensity, 0.15)) 0px,
+    rgba(0, 255, 0, var(--rgb-g-intensity, 0.08)) 2px,
+    rgba(0, 0, 255, var(--rgb-b-intensity, 0.15)) 4px
+  );
+}
+
+.crt-rgb-overlay::after {
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(255, 0, 0, calc(var(--rgb-r-intensity, 0.15) * 0.67)) 1px,
+    rgba(0, 255, 0, calc(var(--rgb-g-intensity, 0.08) * 0.67)) 2px,
+    rgba(0, 0, 255, calc(var(--rgb-b-intensity, 0.15) * 0.67)) 3px
+  );
+}

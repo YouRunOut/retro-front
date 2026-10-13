@@ -1,0 +1,25 @@
+html.crt-chromatic {
+  text-shadow: 0.06rem 0 0.06rem #ea36af, -0.125rem 0 0.06rem #75fa69;
+  letter-spacing: 0.125em;
+}
+
+@keyframes crt-text-flicker {
+  from {
+    text-shadow: 1px 0 0 #ea36af, -2px 0 0 #75fa69;
+  }
+  to {
+    text-shadow: 2px 0.5px 2px #ea36af, -1px -0.5px 2px #75fa69;
+  }
+}
+
+html.crt-chromatic .back-btn,
+html.crt-chromatic .filters-link,
+html.crt-chromatic .reset-btn,
+html.crt-chromatic .reset-tags-btn,
+html.crt-chromatic .confirm-btn,
+html.crt-chromatic .toggle-option,
+html.crt-chromatic .tag-btn,
+html.crt-chromatic .app-select-trigger {
+  text-shadow: inherit;
+  letter-spacing: inherit;
+}

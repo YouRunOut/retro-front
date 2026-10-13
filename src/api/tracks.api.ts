@@ -6,16 +6,16 @@ interface TracksResponse {
   tracks: Track[]
 }
 
-export async function fetchTracks(): Promise<Track[]> {
+export async function fetchTracks(sessionId: string, limit = 10): Promise<Track[]> {
   const { showError } = useErrorModal()
 
   try {
-    const data = await request<TracksResponse>('/api/v1/tracks')
+    const data = await request<TracksResponse>(`/api/v1/tracks/shuffled?limit=${limit}&sessionId=${sessionId}`)
 
     // на всякий случай проверяем, что tracks — массив
     if (!Array.isArray(data)) {
       showError({
-        title: 'Failed to fetch tracks',
+        title: 'Error receiving tracks',
         message: 'Tracks is not an array, fallback to empty array',
         details: '!Array.isArray(data)',
       })
@@ -25,8 +25,8 @@ export async function fetchTracks(): Promise<Track[]> {
 
   } catch (err: any) {
     showError({
-      title: 'Failed to fetch tracks',
-      message: 'Не удалось загрузить список треков.',
+      title: 'Error receiving tracks',
+      message: 'Failed to load tracks list.',
       details: err?.message || String(err),
     })
     return []
