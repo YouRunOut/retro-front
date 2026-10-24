@@ -14,7 +14,6 @@ The project focuses on audio playback, API integration, interactive player contr
 
 - **Audio streaming** — playback of online radio streams using HLS.
 - **Track metadata** — display of currently playing tracks and track information.
-- **Track ratings** — user ratings from 1 to 5 stars.
 - **Playback controls** — volume adjustment and persistent user preferences.
 - **Retro-inspired UI** — cassette-themed player interface, CRT/VHS effects, vignette, and animated visual elements.
 - **Backend integration** — fetching track data and submitting ratings through a REST API.
